@@ -18,10 +18,10 @@ export async function POST(req) {
     fs.mkdirSync(uploadDir, { recursive: true });
 
     const db = await mysql.createConnection({
-      host: "localhost",
-      user: "root",
-      password: "",
-      database: "caf_system",
+     host: process.env.DB_HOST,
+      user: process.env.DB_USER,
+      password: process.env.DB_PASS,
+      database: process.env.DB_NAME,
     });
 
     const [classTestResult] = await db.execute(
@@ -70,10 +70,10 @@ export async function POST(req) {
           questionId,
           q.title || "",
           q.image_url || "",
+          q.options[0] || "",
           q.options[1] || "",
           q.options[2] || "",
           q.options[3] || "",
-          q.options[4] || "",
           q.correctAnswer,
         ]
       );
